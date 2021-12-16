@@ -1,0 +1,150 @@
+% modified from RK's SingleVEP by FGO
+% modified on 2020-01-10
+% modified on 2020-02-28
+
+%%
+clear all
+close all
+
+[file,path]=uigetfile;
+
+%load data
+[header, signal_header, signal_cells] = blockEdfLoad(fullfile(path,file));
+
+% Call the annotation conversion function to convert annotations to a list
+% of event times. 
+% event_times is an array of times recorded for rising or falling edges (in seconds)
+% event_values are the integer (combined value) for the synchronisation 12-bit state
+% event_binary are the binary (per input value) for the synchronisation for each of the 12-bits
+
+[ event_times, event_values, event_binary ] = parse_taini_edf_annotations(signal_header, signal_cells );
+%%
+%Convert event_times from seconds to datapoint by multiplying with the
+%sampling frequency. Select every second points to select the 3's.
+%transpose the array and remove first and last trigger. Round to end up at
+%specific measurement points.
+fs = signal_header(1).samples_in_record / header.data_record_duration;
+
+event_times([1]) = []; %1730 %%PAY ATTENTION! this might differ per measurement
+event_points = event_times * fs; %Sfreq
+plot(event_points, 1, 'r*')
+event_points = event_points(:, 1:2:end)'; %1=every odd index
+event_points = round(event_points);
+hold on
+ylim([0.5 1.5])
+plot(event_points, 0.99, 'b*')
+for ii = 1:length(event_points)
+    text(event_points(ii),0.97,num2str(ii),'Color','k')
+end
+
+%size(event_points)
+%% Number of triggers and channels
+
+%Divide over right intensity changes
+trigV1 = event_points(1001:1400,:);    %fullfile VEP
+%trigV1 = event_points(1576:1675,:);     %low inten
+%trigV1 = event_points(1:400,:);     %early VEP, VEP Nrxn1
+
+%select the EEG right channels from the struct and downsample to rSfreq
+%3=Vright, 4=auditory, 12=auditory, 13=PFC , 14=Vleft (8 & 11= Muscle)
+Ch3 = cell2mat(signal_cells(1,3))'; 
+Ch4 = cell2mat(signal_cells(1,4))';
+Ch12 = cell2mat(signal_cells(1,12))';
+Ch13 = cell2mat(signal_cells(1,13))';
+Ch14 = cell2mat(signal_cells(1,14))';
+Ch8 = cell2mat(signal_cells(1,8))';
+Ch11 = cell2mat(signal_cells(1,11))';
+
+EEG = [Ch3;Ch4;Ch12;Ch13;Ch14;Ch8;Ch11];
+figure(2)
+plot(EEG(1,:))
+
+% Cut around triggers (norm -80:240)
+stimMatV1 = bsxfun(@plus,trigV1,-80:240); 
+
+T = (-80*1/fs):1/fs:(240*1/fs);
+%%
+% consider mean(EEG, dim) as baseline
+baseline=-0.0025;
+for iCh = 1:size(EEG,1)
+
+    %filter EEG data
+    order = 4;
+    hpFilt  = 0.5;
+    lpFilt = 70;
+    
+    
+    %Get rid of packeloss artificial low values and interpolate
+    EEGCh = EEG(iCh,:);
+    EEGCh (EEGCh < 6) = nan;
+    EEGCh (EEGCh > 10) = nan;
+    
+    tmp = EEGCh(stimMatV1(:,:));  % make temp ERP to get trials which contain too long streches of package loss 
+    for P = 1:size(tmp,1)
+    temp = regionprops(isnan(tmp(P,80:end)), 'area'); % find consecutive areas
+    %Store max consecutive area per trial
+    cons = max([(temp.Area)]);
+    if cons > 1
+        artP(P) = cons;
+    else
+        artP(P) = 0;
+    end
+    end
+    % Find trials that have too long streches
+    ArtP = find(artP>8);
+    RemvP(iCh) = length(ArtP);
+    
+    %resampling the data
+    EEGres = resample(EEGCh,1:length(EEGCh));
+    
+    %Filter EEG data
+    EEGHp = filterEEG(EEGres, order, hpFilt, fs, 'high', 2);
+    EEGHLp = filterEEG(EEGHp, order, lpFilt, fs, 'low', 2);
+    
+    %reject artifacts
+    tmp2 = EEGHLp(stimMatV1(:,:));
+    up = mean(tmp2) + 5*std(tmp2);
+    down = mean(tmp2) - 5*std(tmp2);
+    artA = tmp2> up | tmp2<down;
+    % Find trials that have artefacts
+    [ArtA,col] = find(artA);
+    RemvA(iCh) = length(unique(ArtA));
+       
+    %Combine all to be removed trials
+    Artt = unique([ArtA',ArtP]);
+    %ArtT(iVolt,1:length(Artt), iCh) = Art);
+    ArtT(iCh) = length(Artt);
+    
+    %Cut around triggers, average and baseline correct
+        erp = EEGHLp(stimMatV1(:,:));
+        erp(Artt,:) = []; %Artt
+        erp = mean(erp);
+        erp = erp - mean(erp(1:78));
+        ERP(:,iCh) = erp;         
+     
+    
+end
+
+
+%% Figure of raw and filtered data
+figure(3)
+hold on
+plot(EEGres,'k')
+plot(EEGHLp,'r')
+%% Figure of ERP for each channel
+figure(4)
+hold on
+plot(T, ERP(:,1), 'k');
+plot(T, ERP(:,2), 'b');
+plot(T, ERP(:,3), 'g');
+plot(T, ERP(:,4), 'r');
+plot(T, ERP(:,5), 'c');
+%plot(T, ERP(1,:,6), 'm');
+%% saving ERP
+ID=file(12:16);
+path1='D:\Results\2020_11_Nrxn1\Visual\VEP\';
+IDs=strcat(path1,ID,'_VEP4.mat')
+thisFile=ERP;
+save(IDs, 'thisFile');
+
+ArtT
