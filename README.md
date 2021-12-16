@@ -3,7 +3,7 @@ Test repository for matlab code (some for R) from Kaslab.
 The code here is designed to be used on .EDF+ files created with a TainiTec system.
 
 # User Guide
-EEG processing workflow
+## EEG processing workflow
 This document describes the general workflows, with suggested software and scripts for processing EEG recorded either with stimulus (event related potentials) or without stimulus (resting state, sleep).
 For all files the processing is divided into three parts
 1.	preprocessing is done separately for each animal.
@@ -15,8 +15,8 @@ For all event-driven paradigms the scripts contain averaging over events.
 The matlab scripts for these paradigms require the toolboxes: communications, DSP system, image processing and signal processing.
 They further require the matlab script: blockEDFload.m, parse_taini_edf_notations.m, filterEEG.m
 
-VEP and AEP (ERP)
-Matlab (preprocessing)
+### VEP and AEP (ERP)
+*Matlab (preprocessing)*
 - Open the script fullfile_SingleERP.m
 - The first block of the script asks where the data file is and loads it to matlab
 - The second block makes a figure of the triggers in the data and numbers them (the trigger numbers don’t vary between trials for VEP, but they might for AEPs, it’s something with Avisoft )
