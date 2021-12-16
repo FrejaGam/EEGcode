@@ -2,7 +2,7 @@
 % modified on 2020-01-10
 % modified on 2020-02-28
 
-%%
+%% Block 1
 clear all
 close all
 
@@ -18,7 +18,7 @@ close all
 % event_binary are the binary (per input value) for the synchronisation for each of the 12-bits
 
 [ event_times, event_values, event_binary ] = parse_taini_edf_annotations(signal_header, signal_cells );
-%%
+%% Block 2
 %Convert event_times from seconds to datapoint by multiplying with the
 %sampling frequency. Select every second points to select the 3's.
 %transpose the array and remove first and last trigger. Round to end up at
@@ -38,7 +38,7 @@ for ii = 1:length(event_points)
 end
 
 %size(event_points)
-%% Number of triggers and channels
+%% Block 3: Number of triggers and channels
 
 %Divide over right intensity changes
 trigV1 = event_points(1001:1400,:);    %fullfile VEP
@@ -63,7 +63,7 @@ plot(EEG(1,:))
 stimMatV1 = bsxfun(@plus,trigV1,-80:240); 
 
 T = (-80*1/fs):1/fs:(240*1/fs);
-%%
+%% Block 4
 % consider mean(EEG, dim) as baseline
 baseline=-0.0025;
 for iCh = 1:size(EEG,1)
@@ -126,12 +126,12 @@ for iCh = 1:size(EEG,1)
 end
 
 
-%% Figure of raw and filtered data
+%% Block 5: Figure of raw and filtered data
 figure(3)
 hold on
 plot(EEGres,'k')
 plot(EEGHLp,'r')
-%% Figure of ERP for each channel
+%% Block 6: Figure of ERP for each channel
 figure(4)
 hold on
 plot(T, ERP(:,1), 'k');
@@ -140,7 +140,7 @@ plot(T, ERP(:,3), 'g');
 plot(T, ERP(:,4), 'r');
 plot(T, ERP(:,5), 'c');
 %plot(T, ERP(1,:,6), 'm');
-%% saving ERP
+%% Block 7: saving ERP
 ID=file(12:16);
 path1='D:\Results\2020_11_Nrxn1\Visual\VEP\';
 IDs=strcat(path1,ID,'_VEP4.mat')
