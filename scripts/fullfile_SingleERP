@@ -118,16 +118,15 @@ for iCh = 1:size(EEG,1)
         erp = mean(erp);
         erp = erp - mean(erp(1:78));
         ERP(:,iCh) = erp;         
-     
-    
+  
 end
-
 
 %% Block 5: Figure of raw and filtered data
 figure(3)
 hold on
 plot(EEGres,'k')
 plot(EEGHLp,'r')
+
 %% Block 6: Figure of ERP for each channel
 figure(4)
 hold on
@@ -136,7 +135,7 @@ plot(T, ERP(:,2), 'b');
 plot(T, ERP(:,3), 'g');
 plot(T, ERP(:,4), 'r');
 plot(T, ERP(:,5), 'c');
-%plot(T, ERP(1,:,6), 'm');
+
 %% Block 7: saving ERP
 ID=file(12:16);
 path1='D:\Results\2020_11_Nrxn1\Visual\VEP\';
