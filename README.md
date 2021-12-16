@@ -13,7 +13,10 @@ For all files the processing is divided into three parts
 Event related potentials (incl. VEP, AEP, gating, SSVEP and chirp)
 For all event-driven paradigms the scripts contain averaging over events.
 The matlab scripts for these paradigms require the toolboxes: communications, DSP system, image processing and signal processing.
-They further require the matlab script: blockEDFload.m, parse_taini_edf_notations.m, filterEEG.m
+They further require the matlab functions: 
+- blockEDFload.m [https://github.com/DennisDean/]
+- parse_taini_edf_notations.m
+- filterEEG.m
 
 ### VEP and AEP (ERP)
 *Matlab (preprocessing)*
