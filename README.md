@@ -15,7 +15,7 @@ For all event-driven paradigms the scripts contain averaging over events.
 The matlab scripts for these paradigms require the toolboxes: communications, DSP system, image processing and signal processing.
 They further require the matlab functions: 
 - blockEDFload.m [https://github.com/DennisDean/]
-- parse_taini_edf_notations.m
+- parse_taini_edf_notations.m [https://tainitec.com/]
 - filterEEG.m
 
 ### VEP and AEP (ERP)
