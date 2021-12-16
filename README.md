@@ -17,7 +17,7 @@ They further require the matlab script: blockEDFload.m, parse_taini_edf_notation
 
 VEP and AEP (ERP)
 Matlab (preprocessing)
-- Open the script fullfile_singleERP.m
+- Open the script fullfile_SingleERP.m
 - The first block of the script asks where the data file is and loads it to matlab
 - The second block makes a figure of the triggers in the data and numbers them (the trigger numbers don’t vary between trials for VEP, but they might for AEPs, it’s something with Avisoft )
 This is used if there are multiple stimulus-paradigms in the data file. It is then possible to only choose the triggers relevant for this particular analysis.
