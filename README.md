@@ -24,7 +24,7 @@ They further require the matlab functions:
 *Matlab (preprocessing)*
 - Open the script fullfile_SingleERP.m
 - The first block of the script asks where the data file is and loads it to matlab
-- The second block makes a figure of the triggers in the data and numbers them (the trigger numbers don’t vary between trials for VEP, but they might for AEPs, it’s something with Avisoft )
+- The second block makes a figure of the triggers in the data and numbers them *(the trigger numbers don’t vary between trials for VEP, but they might for AEPs, it’s something with Avisoft )*
 This is used if there are multiple stimulus-paradigms in the data file. It is then possible to only choose the triggers relevant for this particular analysis.
 - The third block is where the EEG is cut around event points chosen in the second block. The specific recording channels are also added here. A matrix is made with the channels in a specific time interval around the trigger.
 - In the fourth block the data is filtered, artifact rejected and averaged. A matrix is created, containing the number of artifact rejected trials for each channel.
