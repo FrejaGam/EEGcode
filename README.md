@@ -18,7 +18,7 @@ The matlab scripts for these paradigms require the toolboxes: communications, DS
 They further require the matlab functions: 
 - blockEDFload.m [https://github.com/DennisDean/]
 - parse_taini_edf_notations.m [https://tainitec.com/]
-- filterEEG.m
+- filterEEG.m *(this function applies both low-pass and high-pass Butterworth filters)*
 
 ### VEP and AEP (ERP)
 *Matlab (preprocessing)*
