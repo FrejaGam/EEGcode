@@ -1,8 +1,10 @@
 # EEGcode
-Test repository for matlab code (some for R) from Kaslab. 
+Test repository for matlab code from Kaslab at Rijksuniversiteit Groningen. 
 The code here is designed to be used on .EDF+ files created with a TainiTec system.
 
 # User Guide
+Below is the description of the script for single ERPs along with some general features and dependencies for the data analysis of local field potentials (LFP). More data processing pipelines can be found in the wiki.
+
 ## EEG processing workflow
 This document describes the general workflows, with suggested software and scripts for processing EEG recorded either with stimulus (event related potentials) or without stimulus (resting state, sleep).
 For all files the processing is divided into three parts
