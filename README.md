@@ -1,5 +1,5 @@
 # EEGcode
-Test repository for matlab code from Kaslab at Rijksuniversiteit Groningen. 
+Test repository for matlab code from [Kaslab](https://research.rug.nl/en/organisations/kas-lab-behavioural-neuroscience) at Rijksuniversiteit Groningen. 
 The code here is designed to be used on .EDF+ files created with a TainiTec system.
 
 # User Guide
