@@ -33,7 +33,7 @@ This is used if there are multiple stimulus-paradigms in the data file. It is th
 - The last block is for saving the ERP data and printing the number of artifact rejected trials (can be copy-pasted to an excel file). The ID variable is set to extract the animal number from the name of the .edf file. The path1 variable can be used to specify the path for the saved file. The variable IDs can be used to add a suffix related to experiment such as batch or other relevant info. The suffix should be the same for data that needs to be averaged.
 
 *Matlab (group level analysis)*
-- Open the script 1_2_Averaging_ERP.m (this script calls the function [shadederrorbars.m] (https://nl.mathworks.com/matlabcentral/fileexchange/26311-raacampbell-shadederrorbar))
+- Open the script 1_2_Averaging_ERP.m (this script calls the function [shadederrorbars.m](https://nl.mathworks.com/matlabcentral/fileexchange/26311-raacampbell-shadederrorbar))
 - The first block is for loading the data relevant for the averaging these should have been given the same suffix. The sampling frequency and the relevant time interval are hardcoded in this block.
 - In the second the block the data channels of the different files, are divided into relevant genotypes or treatment groups. And figures are made of the average ERP within each group.
 - For ERP data the amplitude and time should be extracted separately. In terms of matlab programming this is done be extracting the max. and min. values of relevant time windows. These are defined in the third block of the script. This loop will draw the cursors, delimiting the time windows, onto each channel in a specific group. This block only draws the cursors the extraction is done in the following block.
