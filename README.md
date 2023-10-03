@@ -13,6 +13,7 @@ For all files the processing is divided into three parts
 3.	Statistical comparisons between groups are typically done in R.
 
 Event related potentials (incl. VEP, AEP, gating, SSVEP and chirp)
+
 For all event-driven paradigms the scripts contain averaging over events.
 The matlab scripts for these paradigms require the toolboxes: communications, DSP system, image processing and signal processing.
 They further require the matlab functions: 
