@@ -1,6 +1,6 @@
 # EEGcode
-Test repository for matlab code from [Kaslab](https://research.rug.nl/en/organisations/kas-lab-behavioural-neuroscience) at Rijksuniversiteit Groningen. 
-The code here is designed to be used on .EDF+ files created with a TainiTec system.
+Repository for matlab code from [Kaslab](https://research.rug.nl/en/organisations/kas-lab-behavioural-neuroscience) at Rijksuniversiteit Groningen. 
+The code here is designed to be used on .EDF+ files (adapted to a TainiTec system).
 
 # User Guide
 Below is the description of the script for single ERPs along with some general features and dependencies for the data analysis of local field potentials (LFP). For recordings of spontaneous activity the preprocessing and filters are the same as for ERPs thereafter the pipeline forks [scoring](https://github.com/FrejaGam/EEGcode/wiki/Scoring-of-vigilance-states). More data processing scripts can be found in the [wiki](https://github.com/FrejaGam/EEGcode/wiki).
