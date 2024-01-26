@@ -3,7 +3,7 @@ Repository for matlab code from [Kaslab](https://research.rug.nl/en/organisation
 The code here is designed to be used on .EDF+ files in general, but adapted to files recorded in TainiLive.
 
 # User Guide
-Below is the description of the script for single ERPs along with some general features and dependencies for the data analysis of local field potentials (LFP). For recordings of spontaneous activity the preprocessing and filters are the same as for ERPs thereafter the pipeline forks [scoring](https://github.com/FrejaGam/EEGcode/wiki/Scoring-of-vigilance-states). More data processing scripts can be found in the [wiki](https://github.com/FrejaGam/EEGcode/wiki).
+Below is the description of the script for single ERPs along with some general features and dependencies for the data analysis of local field potentials (LFP). For recordings of [spontaneous activity](https://github.com/FrejaGam/EEGcode/wiki/Scoring-of-vigilance-states) the preprocessing and filters are the same as for ERPs thereafter the pipeline forks. More data processing scripts can be found in the [wiki](https://github.com/FrejaGam/EEGcode/wiki).
 
 ## EEG processing workflow
 This document describes the general workflows, with suggested software and scripts for processing EEG recorded either with stimulus (event related potentials) or without stimulus (resting state, sleep).
